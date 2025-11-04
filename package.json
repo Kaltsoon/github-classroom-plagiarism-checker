@@ -1,0 +1,22 @@
+{
+  "name": "github-classroom-plagiarism-checker",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "check": "npx zx src/check.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kaltsoon/github-classroom-plagiarism-checker.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kaltsoon/github-classroom-plagiarism-checker/issues"
+  },
+  "homepage": "https://github.com/Kaltsoon/github-classroom-plagiarism-checker#readme",
+  "description": "",
+  "dependencies": {
+    "zx": "^8.8.5"
+  }
+}
