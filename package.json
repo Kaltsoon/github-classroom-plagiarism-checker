@@ -17,6 +17,8 @@
   "homepage": "https://github.com/Kaltsoon/github-classroom-plagiarism-checker#readme",
   "description": "",
   "dependencies": {
+    "lodash.kebabcase": "^4.1.1",
+    "strip-color": "^0.1.0",
     "zx": "^8.8.5"
   }
 }
