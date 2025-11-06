@@ -1,4 +1,4 @@
-import { usePowerShell, $, minimist } from "zx";
+import { usePowerShell, $, minimist, spinner } from "zx";
 import kebabCase from "lodash.kebabcase";
 import stripColor from "strip-color";
 
@@ -24,6 +24,15 @@ const assignmentName = kebabCase(
     .trim()
 );
 
-await $`gh classroom clone student-repos -a ${assignmentId} --directory data/assignment-repos`;
-await $`gh classroom clone starter-repo -a ${assignmentId} --directory data/starter-repos`;
-await $`java -jar data/jplag/jplag.jar data/assignment-repos/${assignmentName}-submissions -bc data/starter-repos/${assignmentName} --language ${language}`;
+await spinner("Downloading assignment repositories...", () =>
+  Promise.all([
+    $`gh classroom clone student-repos -a ${assignmentId} --directory data/assignment-repos`,
+    $`gh classroom clone starter-repo -a ${assignmentId} --directory data/starter-repos`,
+  ])
+);
+
+await spinner(
+  "Generating plagiation report...",
+  () =>
+    $`java -jar data/jplag/jplag.jar data/assignment-repos/${assignmentName}-submissions -bc data/starter-repos/${assignmentName} --language ${language}`
+);
