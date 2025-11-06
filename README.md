@@ -1,6 +1,6 @@
 ## GitHub Classroom Plagiarism Checker
 
-Command-line tool for checking plagiarism in GitHub Classroom assignments.
+Command-line tool for checking plagiarism in GitHub Classroom assignments using [JPlag](https://github.com/jplag/JPlag).
 
 ## Requirements and setup
 
