@@ -1,6 +1,7 @@
 import { usePowerShell, $, minimist, spinner, glob } from "zx";
 import kebabCase from "lodash.kebabcase";
 import stripColor from "strip-color";
+import { rimraf } from "rimraf";
 
 usePowerShell();
 
@@ -35,12 +36,17 @@ const assignmentName = kebabCase(
     .trim()
 );
 
-await spinner("Downloading assignment repositories...", () =>
-  Promise.all([
+await spinner("Downloading assignment repositories...", async () => {
+  await rimraf([
+    `data/assignment-repos/${assignmentName}-submissions`,
+    `data/starter-repos/${assignmentName}`,
+  ]);
+
+  await Promise.all([
     $`gh classroom clone student-repos -a ${assignmentId} --directory data/assignment-repos`,
     $`gh classroom clone starter-repo -a ${assignmentId} --directory data/starter-repos`,
-  ])
-);
+  ]);
+});
 
 await spinner(
   "Generating plagiation report...",
