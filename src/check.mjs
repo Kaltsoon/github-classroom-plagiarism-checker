@@ -18,9 +18,9 @@ if (!jplagPath) {
     "JPlag release not downloaded, downloading...",
     () => $`gh release download "v6.2.0" -R "jplag/JPlag" --dir data/jplag`
   );
+  
+  jplagPath = await getJPlagPath();
 }
-
-jplagPath = await getJPlagPath();
 
 const assignmentDescription =
   await $`gh classroom assignment -a ${assignmentId}`;
