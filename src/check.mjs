@@ -1,4 +1,4 @@
-import { usePowerShell, $, minimist, spinner } from "zx";
+import { usePowerShell, $, minimist, spinner, glob } from "zx";
 import kebabCase from "lodash.kebabcase";
 import stripColor from "strip-color";
 
@@ -9,6 +9,17 @@ const assignmentId = argv.assignment;
 const language = argv.language ?? "java";
 
 await $`gh extension install github/gh-classroom`;
+
+let jplagPath = await getJPlagPath();
+
+if (!jplagPath) {
+  await spinner(
+    "JPlag release not downloaded, downloading...",
+    () => $`gh release download "v6.2.0" -R "jplag/JPlag" --dir data/jplag`
+  );
+}
+
+jplagPath = await getJPlagPath();
 
 const assignmentDescription =
   await $`gh classroom assignment -a ${assignmentId}`;
@@ -34,5 +45,11 @@ await spinner("Downloading assignment repositories...", () =>
 await spinner(
   "Generating plagiation report...",
   () =>
-    $`java -jar data/jplag/jplag.jar data/assignment-repos/${assignmentName}-submissions -bc data/starter-repos/${assignmentName} --language ${language}`
+    $`java -jar ${jplagPath} data/assignment-repos/${assignmentName}-submissions -bc data/starter-repos/${assignmentName} --language ${language} --overwrite`
 );
+
+async function getJPlagPath() {
+  const jars = await glob("data/jplag/*.jar");
+
+  return jars[0];
+}
