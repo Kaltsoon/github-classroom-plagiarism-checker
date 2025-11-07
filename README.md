@@ -13,4 +13,8 @@ The setup is done as follows:
 
 ## Usage
 
-Run the `npx zx src/check.mjs --assignment "870565" --language "java"` to check plagiarism in an assignment. The `--assignment` flag determines the assignment id and `--language` flag the programming language used in the assignment (defaults to "java"). After installing the assignment repositories a JPlag report should open in the browser.
+Run the `npx zx src/check.mjs --assignment "870565" --language "java"` to check plagiarism in an assignment. The `--assignment` flag determines the assignment id, and the `--language` flag determines the programming language used in the assignment (defaults to "java"). After installing the assignment repositories, a JPlag report should open in the browser.
+
+## License
+
+[MIT](./LICENSE)
