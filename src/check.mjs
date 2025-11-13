@@ -34,6 +34,7 @@ const assignmentName = kebabCase(
     .split(":")
     .at(1)
     .trim()
+    .toLowerCase()
 );
 
 await spinner("Downloading assignment repositories...", async () => {
